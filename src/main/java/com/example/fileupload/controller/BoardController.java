@@ -154,7 +154,14 @@ public class BoardController {
 	}
 	
 	@GetMapping("/removeBoard")
-	public String removeBoard(Model model, @RequestParam int bno) {
+	public String removeBoard(Model model, @RequestParam int bno
+							, RedirectAttributes rda) {
+		List<Boardfile> boardfile = boardfileRepository.findByBno(bno);
+		if (boardfile.size() > 0) { // 파일이 있으므로 삭제 불가
+			rda.addFlashAttribute("msg", "첨부파일을 먼저 삭제해주세요");
+			return "redirect:/boardOne?bno=" + bno;
+		}
+		
 		BoardMapping board = boardRepository.findByBno(bno);
 		model.addAttribute("board", board);
 		return "removeBoard";
@@ -163,6 +170,7 @@ public class BoardController {
 	@PostMapping("/removeBoard")
 	public String removeBoard(BoardForm boardform, @RequestParam int bno
 							, RedirectAttributes rda) {
+				
 		Board board = boardRepository.findByBnoAndPw(bno, boardform.getPw());
 		
 		if (board == null) { // 삭제실패
