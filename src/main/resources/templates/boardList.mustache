@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Board List</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f6f8;
+        margin: 0;
+        padding: 2rem;
+    }
+    h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 2rem;
+    }
+    table {
+        width: 80%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        background: white;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    th, td {
+        padding: 12px 20px;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+    }
+    th {
+        background-color: #007bff;
+        color: white;
+    }
+    td a {
+        text-decoration: none;
+        color: #007bff;
+    }
+    td a:hover {
+        text-decoration: underline;
+    }
+    .pagination, .add-link {
+        width: 80%;
+        margin: 1rem auto;
+        text-align: center;
+    }
+    .pagination a {
+        margin: 0 10px;
+        text-decoration: none;
+        color: #007bff;
+    }
+    .pagination a:hover {
+        text-decoration: underline;
+    }
+    .add-link a {
+        display: inline-block;
+        background-color: #28a745;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: bold;
+        margin-top: 1rem;
+    }
+    .add-link a:hover {
+        background-color: #218838;
+    }
+</style>
+</head>
+<body>
+    <h1>Board List</h1>
+    <table>
+        <tr>
+            <th>bno</th>
+            <th>title</th>
+        </tr>
+        {{#list}}
+        <tr>
+            <td>{{bno}}</td>
+            <td><a href="/boardOne?bno={{bno}}">{{title}}</a></td>
+        </tr>
+        {{/list}}
+    </table>
+
+    <div class="pagination">
+        {{^list.isFirst}}
+            <a href="/boardList?currentPage={{prePage}}">← 이전</a>
+        {{/list.isFirst}}
+
+        <span>{{list.getNumber}}</span>
+
+        {{#list.hasNext}}
+            <a href="/boardList?currentPage={{nextPage}}">다음 →</a>
+        {{/list.hasNext}}
+    </div>
+
+    <div class="add-link">
+        <a href="/addBoard">글 작성하기</a>
+    </div>
+</body>
+</html>

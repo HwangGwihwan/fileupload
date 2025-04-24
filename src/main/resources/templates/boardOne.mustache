@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Board Detail</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f6f8;
+        margin: 0;
+        padding: 2rem;
+    }
+
+    h1, h2 {
+        text-align: center;
+        color: #333;
+    }
+
+    .board-container {
+        width: 600px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        margin-bottom: 2rem;
+    }
+
+    .board-detail {
+        font-size: 18px;
+        line-height: 1.6;
+        color: #444;
+        margin-bottom: 1.5rem;
+    }
+
+    .action-links {
+        text-align: right;
+        margin-top: 1rem;
+    }
+
+    .action-links a {
+        margin-left: 10px;
+        text-decoration: none;
+        color: #007bff;
+        font-weight: bold;
+    }
+
+    .action-links a:hover {
+        text-decoration: underline;
+    }
+
+    .file-section {
+        width: 600px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 1.5rem 2rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .file-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .file-item:last-child {
+        border-bottom: none;
+    }
+
+    .file-item a {
+        text-decoration: none;
+        color: #555;
+    }
+
+    .file-item a:hover {
+        color: #007bff;
+    }
+
+    .file-delete {
+        color: red;
+        font-weight: bold;
+        margin-left: 10px;
+    }
+
+    .file-delete:hover {
+        text-decoration: underline;
+    }
+</style>
+</head>
+<body>
+    <h1>게시글 상세</h1>
+
+    <div class="board-container">
+        <div class="board-detail">
+            <strong>번호:</strong> {{board.bno}} <br>
+            <strong>제목:</strong> {{board.title}}
+        </div>
+
+        <div class="action-links">
+            <a href="/modifyBoard?bno={{board.bno}}">[수정]</a>
+            <a href="/removeBoard?bno={{board.bno}}">[삭제]</a>
+        </div>
+    </div>
+
+    <div class="file-section">
+        <h2>첨부파일</h2>
+        {{#fileList}}
+        <div class="file-item">
+            <a href="/upload/{{fname}}.{{fext}}" download="{{foriginname}}">
+                📄 {{foriginname}}
+            </a>
+            <a class="file-delete" href="/removeBoardfile?fno={{fno}}&bno={{bno}}">[삭제]</a>
+        </div>
+        {{/fileList}}
+    </div>
+</body>
+</html>
